@@ -1,0 +1,16 @@
+<div class="header-container">
+  <header>
+    <img src="assets/search/icon-search.svg" alt="search icon" />
+    <input
+      type="text"
+      placeholder="Search for movies or TV series"
+      (mouseover)="toggleSearchHover(true)"
+      (focus)="toggleSearchHover(true)"
+      (blur)="toggleSearchHover(false)"
+    />
+  </header>
+  <hr
+    id="bottom-hr"
+    [ngStyle]="searchHover ? { opacity: '1' } : { opacity: '0' }"
+  />
+</div>

@@ -1,0 +1,13 @@
+main{
+    margin-top: 64px;
+}
+h1{
+    font-weight: 200;
+}
+section{
+    margin-top: 32px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    display: grid;
+    gap: 40px;
+    padding-right: 36px;
+}

@@ -1,0 +1,59 @@
+<article
+  (mouseenter)="toggleMovieHover(true)"
+  (mouseleave)="toggleMovieHover(false)"
+  [ngStyle]="{
+    background: 'url(' + movieImage + ') lightgray 50% / cover no-repeat'
+  }"
+>
+  <div
+    class="overlay"
+    [ngStyle]="
+      movieHover
+        ? {
+            background:
+              'linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%)'
+          }
+        : {
+            background:
+              'linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.75) 100%)'
+          }
+    "
+  >
+    @if(bookMarkState == 'normal'){
+    <img
+      src="assets/trending/normal-book-mark.svg"
+      alt="bookmark-empty"
+      (mouseover)="toggleBookMarkState('hover')"
+    />
+    } @else if(bookMarkState === 'hover'){
+    <img
+      src="assets/trending/white-book-mark.svg"
+      alt="bookmark-hover"
+      (mouseout)="toggleBookMarkState('normal')"
+      (click)="toggleBookMarkState('bookmark')"
+    />
+    } @else if(bookMarkState === 'bookmark'){
+    <img
+      src="assets/trending/book-mark.svg"
+      alt="bookmark-hover"
+      (click)="toggleBookMarkState('normal')"
+    />
+    }
+    <div
+      class="play-button"
+      [ngStyle]="movieHover ? { display: 'flex' } : { display: 'none' }"
+    >
+      <img src="assets/from-starter/icon-play.svg" alt="play-button" />
+      <h4>Play</h4>
+    </div>
+    <div class="movie-info">
+      <h5>{{ movieYear }}</h5>
+      <img src="assets/trending/movies/oval.svg" alt="oval" />
+      <img src="assets/trending/movies/movie.svg" alt="oval" />
+      <h5>{{ movieType }}</h5>
+      <img src="assets/trending/movies/oval.svg" alt="oval" />
+      <h5>{{ movieRating }}</h5>
+    </div>
+    <h2>{{ movieName }}</h2>
+  </div>
+</article>

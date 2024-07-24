@@ -1,0 +1,48 @@
+.header-container{
+    padding-top: 64px;
+    width: calc(100vw - 164px);
+    padding-right: 36px;
+}
+
+header{
+    min-height: 32px;
+    display: flex;
+}
+
+
+header > input{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    font-size: 24px;
+    color: var(--pure-white);
+    font-weight: 200;
+    font-style: normal;
+    line-height: normal;
+    margin-left: 24px;
+    caret-color: var(--red);
+    width: 100%;
+}
+
+header > input::placeholder{
+    opacity: 0.4979;
+}
+
+header > input:focus{
+    outline: none;
+    border: none;
+}
+
+header > img{
+    height: 32px;
+    width: 32px;
+}
+
+#bottom-hr{
+    margin-top: 15px;
+    margin-left: 56px;
+    border-width: 1px;
+    border-color: var(--greyish-blue);
+}
+
+/* */

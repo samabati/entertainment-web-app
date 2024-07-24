@@ -1,0 +1,17 @@
+h1{
+    margin-top: 34px;
+    font-weight: 200;
+}
+
+main{
+}
+
+section{
+    height: 230px;
+    margin-top: 25px;
+    width: 100%;
+    display: flex;
+    gap: 40px;
+    padding-right: 36px;
+}
+

@@ -40,33 +40,38 @@
 body{
     font-family: "Outfit";
     font-style: normal;
-    font-weight: 400;
+    font-weight: 200;
     line-height: normal;
 }
 
 h1{
     font-size: 32px;
     letter-spacing: -0.5px;
+    color: var(--pure-white)
 }
 
 h2{
     font-size: 24px;
-
+    color: var(--pure-white);
 }
 
 h3{
     font-size: 24px;
+    color: var(--pure-white)
 }
 
 h4{
     font-size: 18px;
+    color: var(--pure-white)
 }
 
 h5{
     font-size: 15px;
+    color: var(--pure-white)
 }
 
 p{
-    font-size: 13px
+    font-size: 13px;
+    color: var(--pure-white)
 }
 
