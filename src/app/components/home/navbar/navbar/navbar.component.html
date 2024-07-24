@@ -1,0 +1,33 @@
+<div class="nav-container">
+  <aside>
+    <img id="red-logo" src="assets/red-logo.svg" alt="red-logo" />
+    <section>
+      <img
+        [ngClass]="{ selected: currentlySelected === 'home' }"
+        src="assets/icon-nav-home.svg"
+        alt="home-icon"
+        (click)="updateNav('home')"
+      />
+      <img
+        [ngClass]="{ selected: currentlySelected === 'movies' }"
+        src="assets/icon-nav-movies.svg"
+        alt="movies-icon"
+        (click)="updateNav('movies')"
+      />
+      <img
+        [ngClass]="{ selected: currentlySelected === 'tv' }"
+        src="assets/icon-nav-tv-series.svg"
+        alt="tv-icon"
+        (click)="updateNav('tv')"
+      />
+      <img
+        [ngClass]="{ selected: currentlySelected === 'bookmark' }"
+        id="bookmark"
+        src="assets/icon-nav-bookmark.svg"
+        alt="bookmark-icon"
+        (click)="updateNav('bookmark')"
+      />
+    </section>
+    <img id="avatar" src="assets/image-avatar.png" alt="image-avatar" />
+  </aside>
+</div>

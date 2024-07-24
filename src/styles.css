@@ -1,1 +1,72 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+/* CSS RESET */
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+  * {
+    margin: 0;
+  }
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+  input, button, textarea, select {
+    font: inherit;
+  }
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+  #root, #__next {
+    isolation: isolate;
+  }
+
+/* Global styles */
+
+
+:root{
+    --dark-blue: #10141E;
+    --semi-dark-blue: #161D2F;
+    --greyish-blue: #5A698F;
+    --red: #FC4747;
+    --pure-white: #FFFFFF;
+}
+
+
+body{
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+h1{
+    font-size: 32px;
+    letter-spacing: -0.5px;
+}
+
+h2{
+    font-size: 24px;
+
+}
+
+h3{
+    font-size: 24px;
+}
+
+h4{
+    font-size: 18px;
+}
+
+h5{
+    font-size: 15px;
+}
+
+p{
+    font-size: 13px
+}
+
