@@ -13,7 +13,7 @@ import { RecommendedMovieComponent } from '../../../shared/components/movie/reco
   templateUrl: './bookmarked-movies.component.html',
   styleUrl: './bookmarked-movies.component.css',
 })
-export class BookmarkedMoviesComponent implements OnInit {
+export class BookmarkedMoviesComponent {
   movies$!: Observable<Movie[]>;
 
   constructor(private movieService: MovieService) {
@@ -24,10 +24,5 @@ export class BookmarkedMoviesComponent implements OnInit {
         });
       })
     );
-  }
-  ngOnInit(): void {
-    this.movies$.subscribe((value) => {
-      console.log(value);
-    });
   }
 }

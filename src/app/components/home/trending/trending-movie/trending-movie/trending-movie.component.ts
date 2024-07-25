@@ -15,7 +15,7 @@ import { MovieService } from '../../../../../services/movie.service';
   templateUrl: './trending-movie.component.html',
   styleUrl: './trending-movie.component.css',
 })
-export class TrendingMovieComponent implements OnInit {
+export class TrendingMovieComponent {
   @Input() movieName!: string;
   @Input() movieYear!: number;
   @Input() movieType!: string;
@@ -29,32 +29,29 @@ export class TrendingMovieComponent implements OnInit {
 
   constructor(private movieService: MovieService) {}
 
-  ngOnInit(): void {
-    this.bookMarkState = this.importedBookMarkState;
-  }
-
   toggleMovieHover(bool: boolean) {
     this.movieHover = bool;
   }
 
-  toggleBookMarkState(str: string) {
-    if (str === 'hover') {
-      this.bookMarkHover = true;
+  toggleHover(isHovered: boolean): void {
+    this.bookMarkHover = isHovered;
+  }
+
+  toggleBookmark(): void {
+    this.importedBookMarkState = !this.importedBookMarkState;
+    this.movieService.bookMarkMovie(this.movieName, this.importedBookMarkState);
+  }
+
+  setBookmarkHover(isHovered: boolean): void {
+    this.bookMarkHover = isHovered;
+  }
+
+  getBookmarkIcon(): string {
+    if (this.importedBookMarkState) {
+      return 'assets/trending/book-mark.svg';
     }
-    if (str === 'normal') {
-      this.bookMarkHover = false;
-    }
-    if (str === 'bookmark') {
-      if (!this.bookMarkState) {
-        this.bookMarkState = true;
-        this.movieService.bookMarkMovie(this.movieName, true);
-      } else {
-        this.bookMarkHover = false;
-      }
-    }
-    if (str === 'remove-bookmark') {
-      this.bookMarkState = false;
-      this.movieService.bookMarkMovie(this.movieName, false);
-    }
+    return this.bookMarkHover
+      ? 'assets/trending/white-book-mark.svg'
+      : 'assets/trending/normal-book-mark.svg';
   }
 }

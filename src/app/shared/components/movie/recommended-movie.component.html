@@ -19,26 +19,13 @@
           }
     "
   >
-    @if(bookMarkState == 'normal'){
     <img
-      src="assets/trending/normal-book-mark.svg"
-      alt="bookmark-empty"
-      (mouseover)="toggleBookMarkState('hover')"
+      [src]="getBookmarkIcon()"
+      alt="bookmark"
+      (mouseover)="setBookmarkHover(true)"
+      (mouseout)="setBookmarkHover(false)"
+      (click)="toggleBookmark()"
     />
-    } @else if(bookMarkState === 'hover'){
-    <img
-      src="assets/trending/white-book-mark.svg"
-      alt="bookmark-hover"
-      (mouseout)="toggleBookMarkState('normal')"
-      (click)="toggleBookMarkState('bookmark')"
-    />
-    } @else if(bookMarkState === 'bookmark'){
-    <img
-      src="assets/trending/book-mark.svg"
-      alt="bookmark-hover"
-      (click)="toggleBookMarkState('normal')"
-    />
-    }
     <div
       class="play-button"
       [ngStyle]="movieHover ? { display: 'flex' } : { display: 'none' }"

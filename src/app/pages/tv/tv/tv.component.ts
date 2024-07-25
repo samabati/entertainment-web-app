@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Movie } from '../../../models/movie';
 import { MovieService } from '../../../services/movie.service';
-import { map, Observable } from 'rxjs';
+import { distinctUntilChanged, map, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { RecommendedMovieComponent } from '../../../shared/components/movie/recommended-movie.component';
 
@@ -16,9 +16,11 @@ export class TvComponent {
   movies$!: Observable<Movie[]>;
   constructor(private movieService: MovieService) {
     this.movies$ = this.movieService.movie$.pipe(
+      map((value) => value.sort((a, b) => a.title.localeCompare(b.title))),
       map((value) => {
         return value.filter((movie) => movie.category === 'TV Series');
-      })
+      }),
+      distinctUntilChanged((curr, next) => curr.length === next.length)
     );
   }
 }

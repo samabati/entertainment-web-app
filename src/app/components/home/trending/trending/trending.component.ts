@@ -12,7 +12,7 @@ import { Movie } from '../../../../models/movie';
   templateUrl: './trending.component.html',
   styleUrl: './trending.component.css',
 })
-export class TrendingComponent implements OnInit {
+export class TrendingComponent {
   movies$!: Observable<Movie[]>;
 
   constructor(private movieService: MovieService) {
@@ -26,11 +26,5 @@ export class TrendingComponent implements OnInit {
 
       distinctUntilChanged((prev, curr) => prev.length === curr.length)
     );
-  }
-
-  ngOnInit(): void {
-    this.movies$.subscribe((value) => {
-      console.log(value);
-    });
   }
 }
