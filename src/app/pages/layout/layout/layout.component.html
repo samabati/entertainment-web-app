@@ -1,7 +1,11 @@
 <main>
   <app-navbar></app-navbar>
   <section>
-    <app-search></app-search>
+    <app-search (search)="setSearch($event)"></app-search>
+    @if(search === ''){
     <router-outlet></router-outlet>
+    } @else {
+    <app-search-page [searchTerm]="search"></app-search-page>
+    }
   </section>
 </main>
