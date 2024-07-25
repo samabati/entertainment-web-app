@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NavbarComponent } from '../../../components/home/navbar/navbar/navbar.component';
 import { RouterOutlet } from '@angular/router';
 import { SearchComponent } from '../../../components/home/search/search/search.component';
@@ -9,13 +9,7 @@ import { RecommendedComponent } from '../../../components/home/recommended/recom
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [
-    NavbarComponent,
-    RouterOutlet,
-    SearchComponent,
-    TrendingComponent,
-    RecommendedComponent,
-  ],
+  imports: [TrendingComponent, RecommendedComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

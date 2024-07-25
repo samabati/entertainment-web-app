@@ -19,24 +19,32 @@
           }
     "
   >
-    @if(bookMarkState == 'normal'){
+    @if(bookMarkState === false && bookMarkHover === false){
     <img
       src="assets/trending/normal-book-mark.svg"
       alt="bookmark-empty"
       (mouseover)="toggleBookMarkState('hover')"
     />
-    } @else if(bookMarkState === 'hover'){
+    } @else if(bookMarkHover === true && bookMarkState == true){
+    <img
+      src="assets/trending/white-book-mark.svg"
+      alt="bookmark-hover"
+      (mouseout)="toggleBookMarkState('bookmark')"
+      (click)="toggleBookMarkState('remove-bookmark')"
+    />
+    } @else if(bookMarkHover === true && bookMarkState == false){
     <img
       src="assets/trending/white-book-mark.svg"
       alt="bookmark-hover"
       (mouseout)="toggleBookMarkState('normal')"
       (click)="toggleBookMarkState('bookmark')"
     />
-    } @else if(bookMarkState === 'bookmark'){
+    } @else if(bookMarkState === true){
     <img
       src="assets/trending/book-mark.svg"
       alt="bookmark-hover"
-      (click)="toggleBookMarkState('normal')"
+      (mouseout)="toggleBookMarkState('bookmark')"
+      (click)="toggleBookMarkState('remove-bookmark')"
     />
     }
     <div

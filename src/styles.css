@@ -75,3 +75,21 @@ p{
     color: var(--pure-white)
 }
 
+/* Styles the scrollbar track */
+::-webkit-scrollbar {
+  width: 10px;  /* Adjust overall width of the scrollbar */
+  background-color: var(--dark-blue);
+}
+
+/* Styles the scrollable part (thumb) */
+::-webkit-scrollbar-thumb {
+  background-color: var(--semi-dark-blue);  /* Color of the scrollable part */
+  border-radius: 5px;  /* Rounds the corners of the thumb */
+  width: 5px;  /* Width of the thumb */
+
+}
+
+/* Optional: Style for when hovering over the thumb */
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--greyish-blue);
+}

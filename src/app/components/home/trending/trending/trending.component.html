@@ -1,33 +1,15 @@
 <main>
   <h1>Trending</h1>
   <section>
+    @if(movies$ | async; as movies){ @for (movie of movies; track movie){
     <app-trending-movie
-      [movieYear]="2019"
-      [movieType]="'Movie'"
-      [movieRating]="'PG'"
-      [movieName]="'Beyond Earth'"
-      [movieImage]="'assets/trending/movies/beyond-earth.png'"
+      [movieYear]="movie.year"
+      [movieType]="movie.category"
+      [movieRating]="movie.rating"
+      [movieName]="movie.title"
+      [movieImage]="movie.thumbnail.trending.large"
+      [importedBookMarkState]="movie.isBookmarked"
     ></app-trending-movie>
-    <app-trending-movie
-      [movieYear]="2021"
-      [movieType]="'Movie'"
-      [movieRating]="'PG'"
-      [movieName]="'Bottom Gear'"
-      [movieImage]="'assets/trending/movies/bottom-gear.png'"
-    ></app-trending-movie>
-    <app-trending-movie
-      [movieYear]="2019"
-      [movieType]="'TV Series'"
-      [movieRating]="'E'"
-      [movieName]="'Undiscovered Cities'"
-      [movieImage]="'assets/trending/movies/undiscovered-cities.png'"
-    ></app-trending-movie>
-    <app-trending-movie
-      [movieYear]="2021"
-      [movieType]="'Movie'"
-      [movieRating]="'18+'"
-      [movieName]="'1998'"
-      [movieImage]="'assets/trending/movies/1998.png'"
-    ></app-trending-movie>
+    } }
   </section>
 </main>

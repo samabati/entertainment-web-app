@@ -1,0 +1,14 @@
+<header>
+  <h1>Bookmarked TV Series</h1>
+</header>
+<section>
+  @if(tvs$ | async; as tvs){ @for(tv of tvs; track tv){
+  <app-recommended-movie
+    [movieYear]="tv.year"
+    [movieType]="tv.category"
+    [movieRating]="tv.rating"
+    [movieName]="tv.title"
+    [movieImage]="tv.thumbnail.regular.large"
+  ></app-recommended-movie>
+  } }
+</section>

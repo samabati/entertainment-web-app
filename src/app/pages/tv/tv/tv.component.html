@@ -1,0 +1,14 @@
+<header>
+  <h1>TV Series</h1>
+</header>
+<section>
+  @if(movies$ | async; as movies){ @for(movie of movies; track movie){
+  <app-recommended-movie
+    [movieYear]="movie.year"
+    [movieType]="movie.category"
+    [movieRating]="movie.rating"
+    [movieName]="movie.title"
+    [movieImage]="movie.thumbnail.regular.large"
+  ></app-recommended-movie>
+  } }
+</section>

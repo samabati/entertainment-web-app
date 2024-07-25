@@ -1,0 +1,11 @@
+main{
+    background-color: var(--dark-blue);
+    height: 100vh;
+    display: flex;
+}
+
+section{
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}

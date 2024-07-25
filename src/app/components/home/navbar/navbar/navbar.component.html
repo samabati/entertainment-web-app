@@ -3,29 +3,29 @@
     <img id="red-logo" src="assets/red-logo.svg" alt="red-logo" />
     <section>
       <img
-        [ngClass]="{ selected: currentlySelected === 'home' }"
+        [ngClass]="{ selected: currentlySelected === '/' }"
         src="assets/nav-bar/icon-nav-home.svg"
         alt="home-icon"
-        (click)="updateNav('home')"
+        (click)="updateNav('/')"
       />
       <img
-        [ngClass]="{ selected: currentlySelected === 'movies' }"
+        [ngClass]="{ selected: currentlySelected === '/movies' }"
         src="assets/nav-bar/icon-nav-movies.svg"
         alt="movies-icon"
-        (click)="updateNav('movies')"
+        (click)="updateNav('/movies')"
       />
       <img
-        [ngClass]="{ selected: currentlySelected === 'tv' }"
+        [ngClass]="{ selected: currentlySelected === '/tv' }"
         src="assets/nav-bar/icon-nav-tv-series.svg"
         alt="tv-icon"
-        (click)="updateNav('tv')"
+        (click)="updateNav('/tv')"
       />
       <img
-        [ngClass]="{ selected: currentlySelected === 'bookmark' }"
+        [ngClass]="{ selected: currentlySelected === '/bookmark' }"
         id="bookmark"
         src="assets/nav-bar/icon-nav-bookmark.svg"
         alt="bookmark-icon"
-        (click)="updateNav('bookmark')"
+        (click)="updateNav('/bookmark')"
       />
     </section>
     <img id="avatar" src="assets/nav-bar/image-avatar.png" alt="image-avatar" />
