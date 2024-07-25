@@ -1,5 +1,5 @@
 <main>
-  <app-navbar></app-navbar>
+  <app-navbar (clearSearch)="setSearch('')"></app-navbar>
   <section>
     <app-search (search)="setSearch($event)"></app-search>
     @if(search === ''){

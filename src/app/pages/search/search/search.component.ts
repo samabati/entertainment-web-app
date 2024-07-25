@@ -1,4 +1,10 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Movie } from '../../../models/movie';
 import { CommonModule } from '@angular/common';
@@ -12,11 +18,21 @@ import { RecommendedMovieComponent } from '../../../shared/components/movie/reco
   templateUrl: './search.component.html',
   styleUrl: './search.component.css',
 })
-export class SearchPageComponent {
+export class SearchPageComponent implements OnInit, OnChanges {
   movies$!: Observable<Movie[]>;
   @Input() searchTerm!: string;
 
-  constructor(private movieService: MovieService) {
+  constructor(private movieService: MovieService) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['searchTerm']) {
+      this.updateMovies();
+    }
+  }
+  ngOnInit(): void {
+    this.updateMovies();
+  }
+
+  private updateMovies() {
     this.movies$ = this.movieService.movie$.pipe(
       map((value) => {
         return value.filter((movie) =>

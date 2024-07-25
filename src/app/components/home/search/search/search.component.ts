@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -27,8 +28,13 @@ export class SearchComponent {
     });
   }
 
-  submitSearch() {
-    this.search.emit(this.searchForm.get('search')?.value);
+  ngOnInit() {
+    this.searchForm
+      .get('search')
+      ?.valueChanges.pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe((value) => {
+        this.search.emit(value);
+      });
   }
 
   toggleSearchHover(bool: boolean) {
