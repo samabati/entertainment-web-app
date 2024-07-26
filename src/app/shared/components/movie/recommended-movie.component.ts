@@ -48,8 +48,4 @@ export class RecommendedMovieComponent {
       ? 'assets/trending/white-book-mark.svg'
       : 'assets/trending/normal-book-mark.svg';
   }
-
-  clickMovieHover() {
-    this.movieHover = !this.movieHover;
-  }
 }
