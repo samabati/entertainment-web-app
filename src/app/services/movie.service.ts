@@ -14,7 +14,7 @@ export class MovieService {
   }
 
   private loadMovies() {
-    this.http.get<Movie[]>('assets/data/data.json').subscribe((value) => {
+    this.http.get<Movie[]>('./assets/data/data.json').subscribe((value) => {
       this.movieSubject.next(value);
     });
   }
