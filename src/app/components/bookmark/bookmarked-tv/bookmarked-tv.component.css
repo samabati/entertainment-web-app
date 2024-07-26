@@ -14,3 +14,46 @@ section{
     display: grid;
     padding-bottom: 69px;
 }
+
+@media (max-width: 1159px) {
+    section{
+        grid-template-columns: repeat(3,1fr);
+        gap: 29px;
+    }
+}
+
+@media (max-width: 861px){
+    header{
+    }
+    header{
+        padding-left: 25px;
+        margin-top: 48px;
+    }
+    section{
+        margin-top: 24px;
+        padding-left: 25px;
+        padding-right: 25px;
+        padding-bottom: 38px;
+    }
+}
+@media(max-width: 660px){
+    section{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+@media (max-width: 450px){
+    header{
+        margin-top: 24px;
+        padding-left: 16px;
+    }
+    header > h1{
+        font-size: 20px;
+    }
+    section{
+        padding-left: 16px;
+        padding-right: 16px;
+        margin-top: 24px;
+    }
+}

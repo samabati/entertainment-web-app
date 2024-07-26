@@ -46,3 +46,34 @@ header > img{
 }
 
 /* */
+
+@media (max-width: 861px){
+    .header-container{
+        padding-top: 10px;
+        padding-left: 25px;
+        padding-right: 25px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 450px) {
+    .header-container{
+        padding-top: 24px;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    header > img{
+        width: 24px;
+        height: 24px;
+    }
+    header > input{
+        margin-left: 16px;
+        font-size: 16px;
+    }
+    header{
+        align-items: center;
+    }
+    #bottom-hr{
+        margin-left: 40px;
+    }
+}

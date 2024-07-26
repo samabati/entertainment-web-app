@@ -9,3 +9,12 @@ section{
     flex-direction: column;
     overflow-x: hidden;
 }
+
+@media (max-width: 861px) {
+    main{
+        flex-direction: column;
+    }
+
+    section{
+    }
+}

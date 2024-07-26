@@ -15,3 +15,30 @@ section{
     padding-right: 36px;
 }
 
+@media (max-width: 861px){
+    main{
+        padding-left: 25px;
+    }
+}
+
+@media (max-width: 660px){
+    section{
+       gap: 16px; 
+    }
+}
+
+@media(max-width: 450px){
+    h1{
+       margin-top: 10px;
+       font-size: 20px;
+    }
+
+    main{
+        padding-left: 16px;
+    }
+
+    section{
+        margin-top: 16px;
+        height:auto
+    }
+}
