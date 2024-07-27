@@ -1,0 +1,59 @@
+<main>
+  <img src="assets/red-logo.svg" alt="" />
+  <section>
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+      <h1>Login</h1>
+      <div
+        class="email-container"
+        (mouseenter)="toggleEmailFocus(true)"
+        (mouseleave)="toggleEmailFocus(false)"
+      >
+        <input
+          (focus)="toggleEmailFocus(true)"
+          type="email"
+          placeholder="Email address"
+          formControlName="email"
+        />
+        @if(formSubmitted && loginForm.getRawValue().email === ''){
+        <p>Can't be empty</p>
+        }
+      </div>
+      <hr
+        id="email-hr"
+        [ngStyle]="{
+          'border-color': emailFocus
+            ? 'var(--pure-white)'
+            : 'var(--greyish-blue)'
+        }"
+      />
+      <div
+        class="password-container"
+        (mouseenter)="togglePasswordFocus(true)"
+        (mouseleave)="togglePasswordFocus(false)"
+      >
+        <input
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+          (focus)="togglePasswordFocus(true)"
+        />
+        @if(formSubmitted && loginForm.getRawValue().password === ''){
+        <p>Can't be empty</p>
+        }
+      </div>
+      <hr
+        id="email-hr"
+        [ngStyle]="{
+          'border-color': passwordFocus
+            ? 'var(--pure-white)'
+            : 'var(--greyish-blue)'
+        }"
+      />
+      <button type="submit">Login to your account</button>
+    </form>
+    <footer>
+      <p>Don't have an account?</p>
+      <p>Sign Up</p>
+    </footer>
+  </section>
+</main>
