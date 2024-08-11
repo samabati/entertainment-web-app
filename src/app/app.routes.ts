@@ -6,6 +6,7 @@ import { TvComponent } from './pages/tv/tv/tv.component';
 import { BookmarkComponent } from './pages/bookmark/bookmark/bookmark.component';
 import { LoginComponent } from './pages/login/login/login.component';
 import { SignupComponent } from './pages/signup/signup/signup.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,7 @@ export const routes: Routes = [
       { path: 'tv', component: TvComponent },
       { path: 'bookmark', component: BookmarkComponent },
     ],
+    canActivate: [authGuard],
   },
   {
     path: 'login',

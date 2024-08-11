@@ -14,7 +14,8 @@
           placeholder="Email address"
           formControlName="email"
         />
-        @if(formSubmitted && loginForm.getRawValue().email === ''){
+        @if((this.loginForm.get('email')?.touched || formSubmitted) == true &&
+        loginForm.getRawValue().email === ''){
         <p>Can't be empty</p>
         }
       </div>
@@ -37,7 +38,8 @@
           formControlName="password"
           (focus)="togglePasswordFocus(true)"
         />
-        @if(formSubmitted && loginForm.getRawValue().password === ''){
+        @if((this.loginForm.get('password')?.touched == true || formSubmitted)
+        && loginForm.getRawValue().password === ''){
         <p>Can't be empty</p>
         }
       </div>
