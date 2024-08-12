@@ -7,6 +7,7 @@ import { BookmarkComponent } from './pages/bookmark/bookmark/bookmark.component'
 import { LoginComponent } from './pages/login/login/login.component';
 import { SignupComponent } from './pages/signup/signup/signup.component';
 import { authGuard } from './guards/auth.guard';
+import { loginGuard } from './guards/login.guard';
 
 export const routes: Routes = [
   {
@@ -23,6 +24,7 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [loginGuard],
   },
   {
     path: 'signup',

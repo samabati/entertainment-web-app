@@ -7,8 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../../services/auth-service/auth.service';
-import { filter, Subscription } from 'rxjs';
-import { NavigationEnd, Router } from '@angular/router';
+import { Subscription, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,12 +17,12 @@ import { NavigationEnd, Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnDestroy {
   loginForm!: FormGroup;
   emailFocus: boolean = false;
   passwordFocus: boolean = false;
   formSubmitted: boolean = false;
-  subscriptions!: Subscription;
+  subscriptions: Subscription = new Subscription();
 
   constructor(
     private fb: FormBuilder,
@@ -33,16 +33,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
-
-    this.subscriptions = this.authService.userAuth$.subscribe((value) => {
-      if (value !== null) {
-        this.router.navigate(['/']);
-      }
-    });
-  }
-  ngOnInit(): void {}
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 
   toggleEmailFocus(bool: boolean) {
@@ -56,10 +46,26 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.formSubmitted = true;
     if (this.loginForm.valid) {
       console.log('submitted');
-      this.authService.loginUser(
-        this.loginForm.getRawValue().email,
-        this.loginForm.getRawValue().password
+      this.subscriptions.add(
+        this.authService
+          .loginUser(
+            this.loginForm.get('email')?.value,
+            this.loginForm.get('password')?.value
+          )
+          .subscribe({
+            next: (response) => {
+              console.log(response);
+              this.router.navigate(['/']);
+            },
+            error: (error) => {
+              console.log('An error has occured:', error);
+            },
+          })
       );
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

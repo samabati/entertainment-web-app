@@ -1,19 +1,28 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of, tap } from 'rxjs';
+import { AuthState } from '../../models/auth-state';
+import { User } from '../../models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private userAuth = new BehaviorSubject(null);
-  userAuth$ = this.userAuth.asObservable();
+  private authState = new BehaviorSubject<AuthState>({
+    isAuthenticated: false,
+    token: null,
+    user: null,
+  });
 
-  constructor(private http: HttpClient) {}
+  authState$ = this.authState.asObservable();
+
+  constructor(private http: HttpClient) {
+    this.verifyToken().subscribe();
+  }
 
   loginUser(email: string, password: string) {
-    this.http
-      .post(
+    return this.http
+      .post<User>(
         'http://localhost:3000/api/v1/auth/login',
         { email, password },
         {
@@ -21,26 +30,74 @@ export class AuthService {
           observe: 'response',
         }
       )
-      .subscribe({
-        next: (response) => {
-          console.log(response);
-          const { token } = response.body as any;
-          this.userAuth.next(token);
-        },
-        error: (err) => {
-          console.log('error:', err);
-        },
-      });
+      .pipe(
+        tap((response) => {
+          const { token, user } = response.body as any;
+          localStorage.setItem('auth_token', token);
+          this.authState.next({
+            isAuthenticated: true,
+            token: token,
+            user: user,
+          });
+          console.log(this.authState);
+        })
+      );
   }
 
   isLoggedIn(): boolean {
-    let loggedIn;
-    this.userAuth$.subscribe((value) => {
-      loggedIn = value;
+    console.log('isloggedin:', this.authState.getValue());
+    return this.authState.getValue().isAuthenticated;
+  }
+
+  logout() {
+    localStorage.removeItem('auth_state');
+    this.authState.next({
+      isAuthenticated: false,
+      token: null,
+      user: null,
     });
-    if (loggedIn === true) {
-      return true;
+  }
+
+  verifyToken(): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+
+    if (!token) {
+      return of(false);
     }
-    return false;
+
+    return this.http
+      .get<User>('http://localhost:3000/api/v1/auth/verify', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        observe: 'response',
+      })
+      .pipe(
+        tap((user) => {
+          console.log(user);
+          this.authState.next({
+            isAuthenticated: true,
+            token: token,
+            user: {
+              id: user.body?.id!,
+              name: user.body?.name!,
+              email: user.body?.email!,
+            },
+          });
+
+          console.log(this.authState);
+        }),
+
+        catchError((error) => {
+          console.log('Unable to verify token', error);
+          this.authState.next({
+            isAuthenticated: false,
+            token: null,
+            user: null,
+          });
+          console.log(this.authState);
+          return of(false);
+        })
+      );
   }
 }
