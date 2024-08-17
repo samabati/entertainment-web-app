@@ -12,15 +12,16 @@ export class AuthService {
     isAuthenticated: false,
     token: null,
     user: null,
+    isLoading: false,
   });
 
   authState$ = this.authState.asObservable();
 
-  constructor(private http: HttpClient) {
-    this.verifyToken().subscribe();
-  }
+  constructor(private http: HttpClient) {}
 
   loginUser(email: string, password: string) {
+    const getAuthState = this.authState.getValue();
+    this.authState.next({ ...getAuthState, isLoading: true });
     return this.http
       .post<User>(
         'http://localhost:3000/api/v1/auth/login',
@@ -38,15 +39,37 @@ export class AuthService {
             isAuthenticated: true,
             token: token,
             user: user,
+            isLoading: false,
           });
           console.log(this.authState);
         })
       );
   }
 
-  isLoggedIn(): boolean {
-    console.log('isloggedin:', this.authState.getValue());
-    return this.authState.getValue().isAuthenticated;
+  signUpUser(email: String, password: String) {
+    const authState = this.authState.getValue();
+    this.authState.next({ ...authState, isLoading: true });
+
+    return this.http
+      .post(
+        'http://localhost:3000/api/v1/auth/signup',
+        { email, password },
+        {
+          headers: { 'Content-Type': 'application/json' },
+          observe: 'response',
+        }
+      )
+      .pipe(
+        tap((response) => {
+          const { token, user } = response.body as any;
+          this.authState.next({
+            isAuthenticated: true,
+            token: token,
+            user: user,
+            isLoading: false,
+          });
+        })
+      );
   }
 
   logout() {
@@ -55,49 +78,58 @@ export class AuthService {
       isAuthenticated: false,
       token: null,
       user: null,
+      isLoading: false,
     });
   }
 
   verifyToken(): Observable<any> {
+    const getAuthState = this.authState.getValue();
+    this.authState.next({ ...getAuthState, isLoading: true });
+
     const token = localStorage.getItem('auth_token');
 
     if (!token) {
+      const getAuthState = this.authState.getValue();
+      this.authState.next({ ...getAuthState, isLoading: false });
       return of(false);
-    }
-
-    return this.http
-      .get<User>('http://localhost:3000/api/v1/auth/verify', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        observe: 'response',
-      })
-      .pipe(
-        tap((user) => {
-          console.log(user);
-          this.authState.next({
-            isAuthenticated: true,
-            token: token,
-            user: {
-              id: user.body?.id!,
-              name: user.body?.name!,
-              email: user.body?.email!,
-            },
-          });
-
-          console.log(this.authState);
-        }),
-
-        catchError((error) => {
-          console.log('Unable to verify token', error);
-          this.authState.next({
-            isAuthenticated: false,
-            token: null,
-            user: null,
-          });
-          console.log(this.authState);
-          return of(false);
+    } else {
+      this.http
+        .get<User>('http://localhost:3000/api/v1/auth/verify', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          observe: 'response',
         })
-      );
+        .pipe(
+          tap((user) => {
+            console.log(user);
+            this.authState.next({
+              isAuthenticated: true,
+              token: token,
+              user: {
+                id: user.body?.id!,
+                name: user.body?.name!,
+                email: user.body?.email!,
+              },
+              isLoading: false,
+            });
+
+            console.log(this.authState);
+          }),
+
+          catchError((error) => {
+            console.log('Unable to verify token', error);
+            this.authState.next({
+              isAuthenticated: false,
+              token: null,
+              user: null,
+              isLoading: false,
+            });
+            console.log(this.authState);
+            return of(false);
+          })
+        );
+      return of(true);
+    }
   }
 }

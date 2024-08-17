@@ -1,28 +1,82 @@
 <main>
   <img src="assets/red-logo.svg" alt="" />
   <section>
-    <form>
+    <form [formGroup]="signUpForm" (ngSubmit)="submitForm()">
       <h1>Sign Up</h1>
-      <div class="email-container">
-        <input type="email" placeholder="Email address" />
+      <div
+        class="email-container"
+        (mouseenter)="emailFocus = true"
+        (mouseleave)="emailFocus = false"
+      >
+        <input
+          type="email"
+          placeholder="Email address"
+          formControlName="email"
+        />
+        @if((signUpForm.get('email')?.touched == true || formSubmitted) &&
+        signUpForm.getRawValue().email === ''){
         <p>Can't be empty</p>
+        }
       </div>
-      <hr id="email-hr" />
-      <div class="password-container">
-        <input type="password" placeholder="Password" />
+      <hr
+        id="email-hr"
+        [ngStyle]="{
+          'border-color': emailFocus
+            ? 'var(--pure-white)'
+            : 'var(--greyish-blue)'
+        }"
+      />
+      <div
+        class="password-container"
+        (mouseenter)="passwordFocus = true"
+        (mouseleave)="passwordFocus = false"
+      >
+        <input
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+        />
+        @if((signUpForm.get('password')?.touched == true || formSubmitted) &&
+        signUpForm.getRawValue().password === ''){
         <p>Can't be empty</p>
+        }
       </div>
-      <hr id="email-hr" />
-      <div class="password-container">
-        <input type="password" placeholder="Repeat Password" />
+      <hr
+        id="email-hr"
+        [ngStyle]="{
+          'border-color': passwordFocus
+            ? 'var(--pure-white)'
+            : 'var(--greyish-blue)'
+        }"
+      />
+      <div
+        class="password-container"
+        (mouseenter)="repeatPasswordFocus = true"
+        (mouseleave)="repeatPasswordFocus = false"
+      >
+        <input
+          type="password"
+          placeholder="Repeat Password"
+          formControlName="repeatPassword"
+        />
+        @if((signUpForm.get('repeatPassword')?.touched == true || formSubmitted)
+        && signUpForm.getRawValue().repeatPassword === ''){
         <p>Can't be empty</p>
+        }
       </div>
-      <hr id="email-hr" />
+      <hr
+        id="email-hr"
+        [ngStyle]="{
+          'border-color': repeatPasswordFocus
+            ? 'var(--pure-white)'
+            : 'var(--greyish-blue)'
+        }"
+      />
       <button>Login to your account</button>
     </form>
     <footer>
       <p>Already have an account?</p>
-      <p>Sign Up</p>
+      <p style="cursor: pointer" [routerLink]="['/login']">Login</p>
     </footer>
   </section>
 </main>

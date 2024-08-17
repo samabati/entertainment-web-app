@@ -38,7 +38,7 @@ h1{
 .email-container > p, .password-container > p{
     font-size: 13px;
     color: var(--red);
-    display: none;
+    display: block;
 }
 
 input{
