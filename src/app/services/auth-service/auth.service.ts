@@ -95,7 +95,7 @@ export class AuthService {
       this.authState.next({ ...getAuthState, isLoading: false });
       return of(false);
     } else {
-      this.http
+      return this.http
         .get<User>('http://localhost:3000/api/v1/auth/verify', {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -131,7 +131,6 @@ export class AuthService {
             return of(false);
           })
         );
-      return of(true);
     }
   }
 }
