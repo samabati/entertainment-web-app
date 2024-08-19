@@ -22,6 +22,5 @@ export class LayoutComponent {
 
   setSearch(str: string) {
     this.search = str;
-    console.log(this.search);
   }
 }

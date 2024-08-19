@@ -61,6 +61,7 @@ export class AuthService {
       )
       .pipe(
         tap((response) => {
+          console.log('response', response);
           const { token, user } = response.body as any;
           this.authState.next({
             isAuthenticated: true,
@@ -68,6 +69,7 @@ export class AuthService {
             user: user,
             isLoading: false,
           });
+          localStorage.setItem('auth_token', token);
         })
       );
   }
